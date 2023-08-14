@@ -47,7 +47,7 @@ function Hero() {
       <Grid.Col lg={9}>
         <Container size="lg" p="lg" mt={150}>
           <Title className={classes.headline} ml={INDENT}>
-            HI - I'M BEN. WELCOME TO MY BLOG
+            HI - I&apos;M BEN. WELCOME TO MY BLOG
           </Title>
           <Divider mx={INDENT} m={70} size={4} />
           <Title ml={INDENT} className={classes.subtitle}>
