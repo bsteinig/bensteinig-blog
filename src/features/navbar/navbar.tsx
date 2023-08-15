@@ -18,16 +18,11 @@ import {
   useMantineTheme,
 } from "@mantine/core";
 import { useDisclosure, useWindowScroll } from "@mantine/hooks";
-import {
-  IconChartAreaLine,
-  IconCrane,
-  IconInfoCircle,
-  IconMoonStars,
-  IconSchool,
-  IconSun,
-} from "@tabler/icons-react";
+import { IconMoonStars, IconSun } from "@tabler/icons-react";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
+import { navbarData } from "./static/data";
+import { LinksGroup } from "./components/Links";
 
 const spin = keyframes({
   "0%": {
@@ -59,7 +54,7 @@ const useStyles = createStyles((theme) => ({
     top: 30,
     left: "50%",
     transform: "translate(-50%, 0)",
-    zIndex: 2,
+    zIndex: 10,
 
     display: "flex",
     flexDirection: "row",
@@ -104,6 +99,7 @@ const useStyles = createStyles((theme) => ({
     justifyContent: "center",
   },
   expanded: {
+    padding: "20px 20px",
     justifyContent: "space-between",
     left: "50%",
   },
@@ -135,7 +131,7 @@ const useStyles = createStyles((theme) => ({
     top: 70,
     left: 0,
     right: 0,
-    zIndex: 2,
+    zIndex: 10,
     borderTopRightRadius: 0,
     borderTopLeftRadius: 0,
     borderTopWidth: 0,
@@ -153,44 +149,6 @@ function Nav({ setActive }: { setActive: (active: string) => void }) {
   const router = useRouter();
 
   const theme = useMantineTheme();
-
-  const data = [
-    {
-      label: "About",
-      value: "About",
-      color: "blue.5",
-      mantineColor: theme.colors.blue[3],
-      icon: IconSchool,
-    },
-    {
-      label: "Experience",
-      value: "Experience",
-      color: "grape.5",
-      mantineColor: theme.colors.grape[3],
-      icon: IconCrane,
-    },
-    {
-      label: "Projects",
-      value: "Projects",
-      color: "teal.5",
-      mantineColor: theme.colors.teal[3],
-      icon: IconChartAreaLine,
-    },
-    {
-      label: "Contact",
-      value: "Contact",
-      color: "orange.5",
-      mantineColor: theme.colors.orange[3],
-      icon: IconInfoCircle,
-    },
-    {
-      label: "Resume",
-      value: "Resume",
-      color: "lime.5",
-      mantineColor: theme.colors.lime[3],
-      icon: IconInfoCircle,
-    },
-  ];
 
   const [opened, { toggle, close }] = useDisclosure(false);
 
@@ -216,32 +174,18 @@ function Nav({ setActive }: { setActive: (active: string) => void }) {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const links = data.map((item) => (
-    <Button
-      variant="subtle"
-      compact
-      color={item.color}
-      className={classes.link}
-      radius="xl"
-      size="xl"
-      key={item.label}
-      component="a"
-      href={`#${item.value.toLowerCase()}`}
-      onClick={() => {
-        setHovered(false);
-      }}
-      onMouseEnter={() => {
-        setHovered(true);
-        setHoverColor(item.mantineColor);
-      }}
-      onMouseLeave={() => {
-        setHovered(false);
-      }}
-    >
-      <Text weight={300} size="md" ml={7}>
-        {item.label}
-      </Text>
-    </Button>
+  const [mobileOpen, setMobileOpen] = useState(false);
+
+  useEffect(() => {
+    if (mobileOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "visible";
+    }
+  }, [mobileOpen]);
+
+  const links = navbarData.map((item, index) => (
+    <LinksGroup {...item} key={item.label} setMobileOpen={setMobileOpen} />
   ));
 
   return (
@@ -249,7 +193,7 @@ function Nav({ setActive }: { setActive: (active: string) => void }) {
       height={70}
       fixed={false}
       p="sm"
-      width={expanded ? { base: "80vmin" } : { base: "60px" }}
+      width={expanded ? { base: "50vmin" } : { base: "60px" }}
       className={
         classes.root +
         " " +
@@ -276,12 +220,14 @@ function Nav({ setActive }: { setActive: (active: string) => void }) {
             justifyContent: "center",
           }}
         >
-          <Burger
-            opened={opened}
-            onClick={toggle}
-            className={classes.burger}
-            size="sm"
-          />
+          {expanded && (
+            <Burger
+              opened={opened}
+              onClick={toggle}
+              className={classes.burger}
+              size="sm"
+            />
+          )}
           <UnstyledButton
             className={classes.link}
             onClick={() => {
@@ -293,6 +239,30 @@ function Nav({ setActive }: { setActive: (active: string) => void }) {
           >
             <BrandLogo width={27.5} />
           </UnstyledButton>
+          {expanded && (
+            <ActionIcon
+              onClick={() => toggleColorScheme()}
+              size="lg"
+              radius="xl"
+              sx={(theme) => ({
+                backgroundColor:
+                  theme.colorScheme === "dark"
+                    ? theme.colors.dark[7]
+                    : theme.colors.gray[0],
+                color:
+                  theme.colorScheme === "dark"
+                    ? theme.colors.dark[0]
+                    : theme.colors.gray[9],
+              })}
+              mx={10}
+            >
+              {colorScheme === "dark" ? (
+                <IconSun size={18} />
+              ) : (
+                <IconMoonStars size={18} />
+              )}
+            </ActionIcon>
+          )}
         </Center>
         {expanded && (
           <>
@@ -311,28 +281,6 @@ function Nav({ setActive }: { setActive: (active: string) => void }) {
                 justifyContent: "center",
               }}
             >
-              <ActionIcon
-                onClick={() => toggleColorScheme()}
-                size="lg"
-                radius="xl"
-                sx={(theme) => ({
-                  backgroundColor:
-                    theme.colorScheme === "dark"
-                      ? theme.colors.dark[5]
-                      : theme.colors.gray[2],
-                  color:
-                    theme.colorScheme === "dark"
-                      ? theme.colors.yellow[4]
-                      : theme.colors.blue[6],
-                })}
-              >
-                {colorScheme === "dark" ? (
-                  <IconSun size={18} />
-                ) : (
-                  <IconMoonStars size={18} />
-                )}
-              </ActionIcon>
-
               <Transition
                 transition="pop-top-right"
                 duration={200}
