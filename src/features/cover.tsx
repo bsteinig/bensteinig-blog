@@ -6,7 +6,7 @@ function Cover() {
       style={{
         marginTop: '100vh',
         height: "200vh",
-        backgroundColor: "steelblue",
+        backgroundColor: "whitesmoke",
         boxSizing: "border-box",
         zIndex: 1,
       }}

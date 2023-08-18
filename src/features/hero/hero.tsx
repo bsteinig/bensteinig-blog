@@ -1,22 +1,26 @@
 import {
+  ActionIcon,
   Box,
   Container,
   Divider,
   Grid,
+  Group,
   SimpleGrid,
   Title,
   createStyles,
+  useMantineColorScheme,
 } from "@mantine/core";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Card from "../cards/card";
+import { IconMoonStars, IconSun } from "@tabler/icons-react";
+import { useMediaQuery, useViewportSize } from "@mantine/hooks";
 
-const gridColor = '495057'
+const gridColor = "495057";
 
 const heroStyles = createStyles((theme) => ({
   root: {
-    height: "100vh",
+    minHeight: "100vh",
     width: "100%",
-    position: "fixed",
     zIndex: -1,
     backgroundColor:
       theme.colorScheme === "dark"
@@ -50,31 +54,72 @@ const heroStyles = createStyles((theme) => ({
     borderLeft: `3px solid ${
       theme.colorScheme === "dark" ? theme.colors.dark[5] : theme.colors.gray[0]
     }`,
-    filter: "blur(100px)",
+    filter: "blur(200px)",
   },
 }));
 
 function Hero() {
   const { classes } = heroStyles();
+  const { colorScheme, toggleColorScheme } = useMantineColorScheme();
+  const matches = useMediaQuery("(max-width: 800px)");
 
-  const INDENT = "10vw";
+  const DESKTOP_INDENT = "10vw";
+  const MOBILE_INDENT = "0vw";
 
   return (
     <Grid gutter={0} className={classes.root}>
       <Grid.Col lg={11} className={classes.hero}>
         <Container size="lg" p="lg" mt={60}>
           <Box className={classes.grid} py={90}>
-            <Title className={classes.headline} ml={INDENT}>
+            <Title
+              className={classes.headline}
+              ml={matches ? MOBILE_INDENT : DESKTOP_INDENT}
+            >
               HI - I&apos;M BEN. WELCOME TO MY BLOG
             </Title>
           </Box>
-          <Divider mx={INDENT} m={70} size={4} />
-          <Title ml={INDENT} mb={30} className={classes.subtitle}>
-            FEATURED ARTICLES
-          </Title>
+          <Divider
+            mx={matches ? MOBILE_INDENT : DESKTOP_INDENT}
+            m={70}
+            size={4}
+          />
+          <Group style={{ alignItems: "flex-start" }}>
+            <Title
+              ml={matches ? MOBILE_INDENT : DESKTOP_INDENT}
+              mb={30}
+              className={classes.subtitle}
+            >
+              FEATURED ARTICLES
+            </Title>
+            <ActionIcon
+              onClick={() => toggleColorScheme()}
+              size="lg"
+              radius="xl"
+              mt={7.5}
+              sx={(theme) => ({
+                backgroundColor:
+                  theme.colorScheme === "dark"
+                    ? theme.colors.dark[7]
+                    : theme.colors.gray[0],
+                color:
+                  theme.colorScheme === "dark"
+                    ? theme.colors.dark[0]
+                    : theme.colors.gray[9],
+              })}
+              mx={10}
+            >
+              {colorScheme === "dark" ? (
+                <IconSun size={18} />
+              ) : (
+                <IconMoonStars size={18} />
+              )}
+            </ActionIcon>
+          </Group>
           <SimpleGrid
             cols={1}
-            ml={INDENT}
+            breakpoints={[{ minWidth: "sm", cols: 2 }]}
+            ml={matches ? MOBILE_INDENT : DESKTOP_INDENT}
+            style={{ justifyItems: "start" }}
             verticalSpacing={40}
           >
             <Card />

@@ -8,6 +8,7 @@ import {
 import { useEffect, useState } from "react";
 import { useLocalStorage } from "@mantine/hooks";
 import Nav from "@/features/navbar/navbar";
+import MiniNav from "@/features/mininav/mininav";
 
 export default function App(props: AppProps) {
   const { Component, pageProps } = props;
@@ -58,6 +59,7 @@ export default function App(props: AppProps) {
             },
           }}
         >
+          <MiniNav />
           {/* <Nav setActive={setActive} /> */}
           <Component {...pageProps} />
         </MantineProvider>

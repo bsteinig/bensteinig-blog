@@ -1,5 +1,6 @@
 import Cover from "@/features/cover";
 import Hero from "@/features/hero/hero";
+import MiniNav from "@/features/mininav/mininav";
 import { Container, Text, Title, createStyles } from "@mantine/core";
 import React from "react";
 
@@ -20,7 +21,6 @@ function Index() {
   return (
     <main className={classes.root}>
       <Hero />
-      <Cover />
     </main>
   );
 }
