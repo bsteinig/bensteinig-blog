@@ -20,13 +20,13 @@ const cardStyles = createStyles((theme) => ({
 
 function Card() {
   const { classes } = cardStyles();
-  const matches = useMediaQuery("(max-width: 600px)");
+  const medium = useMediaQuery("(max-width: 600px)");
 
   return (
     <Paper shadow="sm" radius="md" pt="xs" p="sm" className={classes.root}>
       <Stack spacing={0}>
         <Title className={classes.title}>Interesting Blog Post</Title>
-        <Text lineClamp={matches ? 2 : 4} pt={10} pb={5}>
+        <Text lineClamp={medium ? 2 : 4} pt={10} pb={5}>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
           eiusmod tempor incididunt ut labore et dolore magna aliqua. Faucibus
           purus in massa tempor nec feugiat nisl pretium. Vulputate sapien nec

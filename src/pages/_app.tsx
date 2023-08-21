@@ -5,9 +5,7 @@ import {
   ColorSchemeProvider,
   MantineProvider,
 } from "@mantine/core";
-import { useEffect, useState } from "react";
 import { useLocalStorage } from "@mantine/hooks";
-import Nav from "@/features/navbar/navbar";
 import MiniNav from "@/features/mininav/mininav";
 
 export default function App(props: AppProps) {
@@ -20,8 +18,6 @@ export default function App(props: AppProps) {
   const toggleColorScheme = (value?: ColorScheme) => {
     setColorScheme(value || (colorScheme === "dark" ? "light" : "dark"));
   };
-
-  const [active, setActive] = useState("home");
 
   return (
     <>
@@ -60,7 +56,6 @@ export default function App(props: AppProps) {
           }}
         >
           <MiniNav />
-          {/* <Nav setActive={setActive} /> */}
           <Component {...pageProps} />
         </MantineProvider>
       </ColorSchemeProvider>

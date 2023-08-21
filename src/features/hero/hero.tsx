@@ -83,38 +83,15 @@ function Hero() {
             m={70}
             size={4}
           />
-          <Group style={{ alignItems: "flex-start" }}>
-            <Title
-              ml={matches ? MOBILE_INDENT : DESKTOP_INDENT}
-              mb={30}
-              className={classes.subtitle}
-            >
-              FEATURED ARTICLES
-            </Title>
-            <ActionIcon
-              onClick={() => toggleColorScheme()}
-              size="lg"
-              radius="xl"
-              mt={7.5}
-              sx={(theme) => ({
-                backgroundColor:
-                  theme.colorScheme === "dark"
-                    ? theme.colors.dark[7]
-                    : theme.colors.gray[0],
-                color:
-                  theme.colorScheme === "dark"
-                    ? theme.colors.dark[0]
-                    : theme.colors.gray[9],
-              })}
-              mx={10}
-            >
-              {colorScheme === "dark" ? (
-                <IconSun size={18} />
-              ) : (
-                <IconMoonStars size={18} />
-              )}
-            </ActionIcon>
-          </Group>
+
+          <Title
+            ml={matches ? MOBILE_INDENT : DESKTOP_INDENT}
+            mb={30}
+            className={classes.subtitle}
+          >
+            FEATURED ARTICLES
+          </Title>
+
           <SimpleGrid
             cols={1}
             breakpoints={[{ minWidth: "sm", cols: 2 }]}
