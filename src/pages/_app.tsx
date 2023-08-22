@@ -4,12 +4,30 @@ import {
   ColorScheme,
   ColorSchemeProvider,
   MantineProvider,
+  createStyles,
 } from "@mantine/core";
 import { useLocalStorage } from "@mantine/hooks";
 import MiniNav from "@/features/mininav/mininav";
 
+const useStyles = createStyles((theme) => ({
+  root: {
+    minHeight: "100vh",
+    position: "relative",
+    zIndex: 1,
+    scrollBehavior: "smooth",
+    overflowX: "hidden",
+    boxSizing: "border-box",
+    backgroundColor:
+      theme.colorScheme === "dark"
+        ? theme.colors.dark[8]
+        : theme.colors.gray[1],
+  },
+}));
+
+
 export default function App(props: AppProps) {
   const { Component, pageProps } = props;
+  const { classes } = useStyles();
 
   const [colorScheme, setColorScheme] = useLocalStorage<ColorScheme>({
     key: "color-scheme",
@@ -56,7 +74,9 @@ export default function App(props: AppProps) {
           }}
         >
           <MiniNav />
+          <main className={classes.root}>
           <Component {...pageProps} />
+          </main>
         </MantineProvider>
       </ColorSchemeProvider>
     </>

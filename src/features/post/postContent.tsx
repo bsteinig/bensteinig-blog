@@ -1,5 +1,4 @@
-import { Container, Divider, Text, Title, createStyles } from "@mantine/core";
-import { useMediaQuery } from "@mantine/hooks";
+import {  Divider, Text, Title, createStyles } from "@mantine/core";
 import { Timestamp } from "firebase/firestore";
 import React from "react";
 

@@ -4,16 +4,13 @@ import {
   Container,
   Divider,
   Grid,
-  Group,
   SimpleGrid,
   Title,
   createStyles,
-  useMantineColorScheme,
 } from "@mantine/core";
 import React, { useEffect, useState } from "react";
 import Card from "../cards/card";
-import { IconMoonStars, IconSun } from "@tabler/icons-react";
-import { useMediaQuery, useViewportSize } from "@mantine/hooks";
+import { useMediaQuery } from "@mantine/hooks";
 
 const gridColor = "495057";
 
@@ -60,7 +57,6 @@ const heroStyles = createStyles((theme) => ({
 
 function Hero() {
   const { classes } = heroStyles();
-  const { colorScheme, toggleColorScheme } = useMantineColorScheme();
   const matches = useMediaQuery("(max-width: 800px)");
 
   const DESKTOP_INDENT = "10vw";
@@ -98,10 +94,7 @@ function Hero() {
             ml={matches ? MOBILE_INDENT : DESKTOP_INDENT}
             style={{ justifyItems: "start" }}
             verticalSpacing={40}
-          >
-            <Card />
-            <Card />
-          </SimpleGrid>
+          ></SimpleGrid>
         </Container>
       </Grid.Col>
       <Grid.Col lg={1} className={classes.graphic}></Grid.Col>

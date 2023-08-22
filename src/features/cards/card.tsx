@@ -1,10 +1,11 @@
 import { Paper, Stack, Text, Title, createStyles } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
+import { Timestamp } from "firebase/firestore";
 import React from "react";
 
 const cardStyles = createStyles((theme) => ({
   root: {
-    minWidth: "min(100%,400px)",
+    maxWidth: "min(95%,900px)",
     backgroundColor:
       theme.colorScheme === "dark"
         ? theme.colors.dark[9]
@@ -18,23 +19,31 @@ const cardStyles = createStyles((theme) => ({
   },
 }));
 
-function Card() {
+function Card({ id, title, date, excerpt, tags }: CardProps) {
   const { classes } = cardStyles();
   const medium = useMediaQuery("(max-width: 600px)");
+
+  const options = {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  };
+  // @ts-ignore
+  const readableDate = date.toDate().toLocaleString("en-US", options);
 
   return (
     <Paper shadow="sm" radius="md" pt="xs" p="sm" className={classes.root}>
       <Stack spacing={0}>
-        <Title className={classes.title}>Interesting Blog Post</Title>
+        <Title className={classes.title}>
+          <Text inherit component="a" href={`/post/${id}`}>
+            {title}
+          </Text>
+        </Title>
         <Text lineClamp={medium ? 2 : 4} pt={10} pb={5}>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Faucibus
-          purus in massa tempor nec feugiat nisl pretium. Vulputate sapien nec
-          sagittis aliquam malesuada bibendum arcu vitae. Nulla pharetra diam
-          sit amet nisl.
+          {excerpt}
         </Text>
         <Text size="md" color="dimmed">
-          2/2/2021
+          {readableDate}
         </Text>
       </Stack>
     </Paper>
@@ -42,3 +51,12 @@ function Card() {
 }
 
 export default Card;
+
+interface CardProps {
+  title: string;
+  date: Timestamp;
+  excerpt: string;
+  tags: string[];
+  key: string;
+  id: string;
+}
