@@ -1,4 +1,5 @@
-import { db } from "@/firebase/firebaseConfig";
+import { auth, db } from "@/firebase/firebaseConfig";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { collection, doc, getDoc, getDocs } from "firebase/firestore";
 
 export async function getPostContent(slug) {
@@ -28,4 +29,19 @@ export async function getAllPosts() {
   return getDocs(archiveRef).then((docs) => {
     return docs.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
   });
+}
+
+// Auth
+
+export async function signIn({ email, password }) {
+  let result = null,
+    error = null;
+  try {
+    result = await signInWithEmailAndPassword(auth, email, password);
+  } catch (e) {
+    error = e;
+    console.error(e);
+  }
+
+  return { result, error };
 }
