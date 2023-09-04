@@ -3,7 +3,7 @@ import { useMediaQuery } from "@mantine/hooks";
 import { Timestamp } from "firebase/firestore";
 import React from "react";
 
-const cardStyles = createStyles((theme) => ({
+const useStyles = createStyles((theme) => ({
   root: {
     maxWidth: "min(95%,900px)",
     backgroundColor:
@@ -20,7 +20,7 @@ const cardStyles = createStyles((theme) => ({
 }));
 
 function Card({ id, title, date, excerpt, tags }: CardProps) {
-  const { classes } = cardStyles();
+  const { classes } = useStyles();
   const medium = useMediaQuery("(max-width: 600px)");
 
   const options = {
