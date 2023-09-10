@@ -1,4 +1,4 @@
-import {  Divider, Text, Title, createStyles } from "@mantine/core";
+import { Divider, Text, Title, createStyles } from "@mantine/core";
 import { Timestamp } from "firebase/firestore";
 import React from "react";
 
@@ -42,18 +42,18 @@ function PostContent({ title, date, content, tags }: PostContentProps) {
   const contentJSX = content.map((item, index) => {
     if (item.type === "paragraph") {
       return (
-        <>
+        <div key={index}>
           {index == 0 ? (
-            <Text className={classes.dropCap} size="xl" key={index}>
+            <Text className={classes.dropCap} size="xl">
               {item.content}
             </Text>
           ) : (
-            <Text className={classes.content} size="xl" key={index}>
+            <Text className={classes.content} size="xl">
               {item.content}
             </Text>
           )}
           <br />
-        </>
+        </div>
       );
     }
   });

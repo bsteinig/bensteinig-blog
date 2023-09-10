@@ -16,6 +16,7 @@ import React, { useEffect, useState } from "react";
 import { signIn } from "@/firebase/lib/firebase";
 import { User, onAuthStateChanged } from "firebase/auth";
 import { auth } from "@/firebase/firebaseConfig";
+import Dashboard from "@/features/create/dashboard";
 
 function Create() {
   const small = useMediaQuery("(max-width: 1150px)");
@@ -47,7 +48,7 @@ function Create() {
   }, []);
 
   return (
-    <Container size="md" mt={small ? 180 : 120} mb={100}>
+    <Container size="xl" mt={small ? 180 : 120} mb={100}>
       {!user ? (
         <Center style={{ flexDirection: "column" }}>
           <Title order={1}>Welcome back, Ben.</Title>
@@ -72,9 +73,7 @@ function Create() {
           </Paper>
         </Center>
       ) : (
-        <Text>
-          Signed in as <strong>{user?.email}</strong>
-        </Text>
+        <Dashboard />
       )}
     </Container>
   );

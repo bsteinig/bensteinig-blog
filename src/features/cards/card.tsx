@@ -32,7 +32,7 @@ function Card({ id, title, date, excerpt, tags }: CardProps) {
   const readableDate = date.toDate().toLocaleString("en-US", options);
 
   return (
-    <Paper shadow="sm" radius="md" pt="xs" p="sm" className={classes.root}>
+    <Paper shadow="sm" radius="md" p="md" className={classes.root}>
       <Stack spacing={0}>
         <Title className={classes.title}>
           <Text inherit component="a" href={`/post/${id}`}>

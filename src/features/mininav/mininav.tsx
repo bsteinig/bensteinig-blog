@@ -7,7 +7,7 @@ import {
   createStyles,
   useMantineColorScheme,
 } from "@mantine/core";
-import { useDisclosure } from "@mantine/hooks";
+import { useDisclosure, useMediaQuery } from "@mantine/hooks";
 import React from "react";
 import ColorSchemeToggle from "./components/colorSchemeToggle";
 import MiniLink from "./components/miniLink";
@@ -36,6 +36,7 @@ function MiniNav() {
   const [opened, handlers] = useDisclosure(false);
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
   const router = useRouter();
+  const small = useMediaQuery("(max-width: 1150px)");
 
   const renderLinks = LINKS.map((link, index) => {
     const enterDuration = (ENTRY_LENGTH / LINKS.length) * (index + 1);
@@ -62,6 +63,7 @@ function MiniNav() {
           size="lg"
           title="Open navigation"
         ></Burger>
+
         {router.pathname === "/" ? null : (
           <Transition
             mounted={opened}
